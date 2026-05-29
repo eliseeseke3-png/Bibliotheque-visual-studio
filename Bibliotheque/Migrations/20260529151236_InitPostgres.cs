@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Bibliotheque.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitPostgres : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,17 +18,17 @@ namespace Bibliotheque.Migrations
                 name: "Livres",
                 columns: table => new
                 {
-                    Id_livre = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Titre = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Auteur = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    ISBN = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Categorie = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Disponibilite = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "Disponible"),
-                    Quantite = table.Column<int>(type: "int", nullable: false),
-                    QuantiteDisponible = table.Column<int>(type: "int", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true)
+                    Id_livre = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Titre = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Auteur = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    ISBN = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    Categorie = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Disponibilite = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false, defaultValue: "Disponible"),
+                    Quantite = table.Column<int>(type: "integer", nullable: false),
+                    QuantiteDisponible = table.Column<int>(type: "integer", nullable: false),
+                    ImageUrl = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    Description = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,13 +39,13 @@ namespace Bibliotheque.Migrations
                 name: "Membres",
                 columns: table => new
                 {
-                    Id_membre = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Prenom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Telephone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Adresse = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    Id_membre = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nom = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Prenom = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Telephone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    Adresse = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,17 +56,17 @@ namespace Bibliotheque.Migrations
                 name: "Utilisateurs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Nom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Prenom = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Telephone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Adresse = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Id_membre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Username = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    Role = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Nom = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Prenom = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Telephone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    Adresse = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Id_membre = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,14 +77,14 @@ namespace Bibliotheque.Migrations
                 name: "Abonnements",
                 columns: table => new
                 {
-                    Id_abonnement = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CodeAbonnement = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Id_membre = table.Column<int>(type: "int", nullable: false),
-                    DateDebut = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateFin = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Actif = table.Column<bool>(type: "bit", nullable: false),
-                    Montant = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Id_abonnement = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CodeAbonnement = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Id_membre = table.Column<int>(type: "integer", nullable: false),
+                    DateDebut = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DateFin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Actif = table.Column<bool>(type: "boolean", nullable: false),
+                    Montant = table.Column<decimal>(type: "numeric(15,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,16 +101,16 @@ namespace Bibliotheque.Migrations
                 name: "Emprunts",
                 columns: table => new
                 {
-                    Id_emprunt = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CodeEmprunt = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Id_membre = table.Column<int>(type: "int", nullable: false),
-                    Id_livre = table.Column<int>(type: "int", nullable: false),
-                    Date_emprunt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Date_retour_prevue = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Date_retour_effective = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Penalite = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Statut = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Id_emprunt = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CodeEmprunt = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Id_membre = table.Column<int>(type: "integer", nullable: false),
+                    Id_livre = table.Column<int>(type: "integer", nullable: false),
+                    Date_emprunt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Date_retour_prevue = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Date_retour_effective = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Penalite = table.Column<decimal>(type: "numeric(15,2)", nullable: false),
+                    Statut = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,13 +133,13 @@ namespace Bibliotheque.Migrations
                 name: "Notifications",
                 columns: table => new
                 {
-                    Id_notification = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Id_membre = table.Column<int>(type: "int", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Date_envoie = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Lu = table.Column<bool>(type: "bit", nullable: false)
+                    Id_notification = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id_membre = table.Column<int>(type: "integer", nullable: false),
+                    Message = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    Date_envoie = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Type = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Lu = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,14 +156,14 @@ namespace Bibliotheque.Migrations
                 name: "Reservations",
                 columns: table => new
                 {
-                    Id_reservation = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CodeReservation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Id_membre = table.Column<int>(type: "int", nullable: false),
-                    Id_livre = table.Column<int>(type: "int", nullable: false),
-                    Date_reservation = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Date_expiration = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Statut = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Id_reservation = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CodeReservation = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Id_membre = table.Column<int>(type: "integer", nullable: false),
+                    Id_livre = table.Column<int>(type: "integer", nullable: false),
+                    Date_reservation = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Date_expiration = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Statut = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -185,13 +186,13 @@ namespace Bibliotheque.Migrations
                 name: "Penalites",
                 columns: table => new
                 {
-                    Id_penalite = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Id_emprunt = table.Column<int>(type: "int", nullable: false),
-                    Montant = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
-                    Raison = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Date_ = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Statut = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Id_penalite = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id_emprunt = table.Column<int>(type: "integer", nullable: false),
+                    Montant = table.Column<decimal>(type: "numeric(15,2)", nullable: false),
+                    Raison = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    Date_ = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Statut = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
