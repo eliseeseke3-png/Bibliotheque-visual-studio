@@ -1,0 +1,202 @@
+@model ViewModel
+@{
+    ViewData["Title"] = "Accueil";
+}
+
+<div class="container-fluid px-0 px-md-4 py-4">
+    <!-- Bannière -->
+    <section class="mb-4">
+        <div class="banner-gradient text-white rounded-lg p-4 p-md-5" style="min-height: 280px; display: flex; align-items: center;">
+            <div class="row align-items-center w-100">
+                <div class="col-md-7">
+                    <h1 class="display-6 fw-bold mb-2">Bienvenue à la Bibliothèque</h1>
+                    <p class="lead text-white-75 mb-4">Explorez des milliers de livres, réservez et empruntez facilement.</p>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <a href="@Url.Action("Index", "Livre")" class="btn btn-light btn-lg"><i class="bi bi-book me-2"></i>Voir la collection</a>
+                        <a href="@Url.Action("Index", "Membres")" class="btn btn-outline-light btn-lg"><i class="bi bi-person me-2"></i>Mon compte</a>
+                    </div>
+                </div>
+                <div class="col-md-5 d-none d-md-block text-end">
+                    <svg width="100%" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="opacity:0.8;">
+                        <rect x="20" y="40" width="50" height="120" fill="rgba(255,255,255,0.2)" rx="3"/>
+                        <rect x="80" y="30" width="50" height="130" fill="rgba(255,255,255,0.3)" rx="3"/>
+                        <rect x="140" y="35" width="50" height="125" fill="rgba(255,255,255,0.2)" rx="3"/>
+                        <rect x="200" y="25" width="50" height="135" fill="rgba(255,255,255,0.25)" rx="3"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recherche rapide -->
+    <section class="mb-4">
+        <form method="get" action="@Url.Action("Index", "Livre")" class="search-form">
+            <div class="input-group shadow-sm" style="border-radius: var(--radius-md); overflow: hidden;">
+                <input type="search" name="q" class="form-control form-control-lg" placeholder="Rechercher un livre, un auteur ou une catégorie..." aria-label="Recherche" style="border:none;">
+                <button class="btn btn-primary btn-lg" type="submit"><i class="bi bi-search me-1"></i> Rechercher</button>
+            </div>
+        </form>
+    </section>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Livres populaires -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h5 mb-0 fw-bold"><i class="bi bi-star-fill text-warning me-2"></i>Livres populaires</h3>
+                    <a href="@Url.Action("Index", "Livre")" class="small text-muted">Voir tout →</a>
+                </div>
+                <div class="row g-3">
+                    @if (Model.PopularBooks != null && Model.PopularBooks.Any())
+                    {
+                        foreach (var livre in Model.PopularBooks)
+                        {
+                            <div class="col-6 col-md-4">
+                                <div class="card h-100 shadow-sm border-0 book-card">
+                                    <div style="height: 180px; overflow: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                        @if (!string.IsNullOrEmpty(livre.ImageUrl))
+                                        {
+                                            <img src="@livre.ImageUrl" class="card-img-top" style="height:100%; object-fit:cover;" alt="@livre.Titre">
+                                        }
+                                        else
+                                        {
+                                            <div class="d-flex align-items-center justify-content-center h-100 text-white">
+                                                <i class="bi bi-book" style="font-size: 3rem; opacity: 0.5;"></i>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <h6 class="mb-1 fw-semibold" style="font-size: 0.9rem;">@livre.Titre</h6>
+                                        <p class="text-muted small mb-1">@livre.Auteur</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="badge @(livre.Disponibilite == "Disponible" ? "bg-success" : "bg-danger")" style="font-size: 0.7rem;">@livre.Disponibilite</span>
+                                            <a href="@Url.Action("Details", "Livre", new { id = livre.Id_livre })" class="small text-primary fw-500">Détails →</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-info"><i class="bi bi-info-circle me-2"></i>Aucun livre populaire trouvé.</div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Livres récents -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="h5 mb-0 fw-bold"><i class="bi bi-clock-history text-info me-2"></i>Derniers ajouts</h3>
+                    <a href="@Url.Action("Index", "Livre")" class="small text-muted">Voir tout →</a>
+                </div>
+                <div class="row g-3">
+                    @if (Model.RecentBooks != null && Model.RecentBooks.Any())
+                    {
+                        foreach (var livre in Model.RecentBooks)
+                        {
+                            <div class="col-12">
+                                <div class="d-flex align-items-center gap-3 p-3 bg-white rounded-lg shadow-sm book-item border-0">
+                                    <div style="width:80px; height:110px; flex-shrink: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: var(--radius-md); overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                                        @if (!string.IsNullOrEmpty(livre.ImageUrl))
+                                        {
+                                            <img src="@livre.ImageUrl" alt="" style="width:100%; height:100%; object-fit:cover;">
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-book text-white" style="font-size: 2rem; opacity: 0.5;"></i>
+                                        }
+                                    </div>
+                                    <div class="flex-grow-1 min-width-0">
+                                        <h6 class="mb-1 fw-semibold">@livre.Titre</h6>
+                                        <p class="small text-muted mb-1"><i class="bi bi-person me-1"></i>@livre.Auteur <span class="mx-1">•</span> <span class="badge bg-light text-dark">@livre.Categorie</span></p>
+                                        <p class="small text-muted mb-0">@(livre.Description?.Length > 140 ? livre.Description.Substring(0, 140) + "..." : livre.Description ?? "")</p>
+                                    </div>
+                                    <div class="text-end flex-shrink-0">
+                                        <span class="badge @(livre.Disponibilite == "Disponible" ? "bg-success" : "bg-danger") d-block mb-2">@livre.Disponibilite</span>
+                                        <a href="@Url.Action("Details", "Livre", new { id = livre.Id_livre })" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye me-1"></i>Voir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-info"><i class="bi bi-info-circle me-2"></i>Aucun livre récent trouvé.</div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Catégories -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="mb-3 fw-bold"><i class="bi bi-tag me-2"></i>Catégories</h5>
+                    @if (Model.Categories != null && Model.Categories.Any())
+                    {
+                        <div class="d-flex flex-wrap gap-2">
+                            @foreach (var cat in Model.Categories.OrderBy(c => c))
+                            {
+                                <a href="@Url.Action("Index", "Livre", new { category = cat })" class="category-badge badge bg-light text-dark border"><i class="bi bi-bookmark me-1"></i>@cat</a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted small">Aucune catégorie trouvée.</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Statistiques rapides -->
+            <div class="card mb-4 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="mb-3 fw-bold"><i class="bi bi-graph-up me-2"></i>Votre bibliothèque</h5>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="text-center p-2 bg-light rounded">
+                                <h4 class="text-primary mb-1">@Model.LivresDisponibles</h4>
+                                <small class="text-muted">Disponibles</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-2 bg-light rounded">
+                                <h4 class="text-success mb-1">@Model.EmpruntsActifs</h4>
+                                <small class="text-muted">En cours</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-2 bg-light rounded">
+                                <h4 class="text-warning mb-1">@Model.ReservationsEnAttente</h4>
+                                <small class="text-muted">Réservations</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-2 bg-light rounded">
+                                <h4 class="text-danger mb-1">@Model.PenalitesNonPayees</h4>
+                                <small class="text-muted">Pénalités</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions rapides -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="mb-3 fw-bold"><i class="bi bi-lightning-charge me-2"></i>Actions rapides</h5>
+                    <div class="d-grid gap-2">
+                        <a href="@Url.Action("Create", "Reservations")" class="btn btn-outline-primary"><i class="bi bi-bookmark-plus me-2"></i>Réserver un livre</a>
+                        <a href="@Url.Action("Index", "Emprunts")" class="btn btn-outline-primary"><i class="bi bi-arrow-left-right me-2"></i>Mes emprunts</a>
+                        <a href="@Url.Action("Index", "Livre")" class="btn btn-outline-primary"><i class="bi bi-book me-2"></i>Parcourir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

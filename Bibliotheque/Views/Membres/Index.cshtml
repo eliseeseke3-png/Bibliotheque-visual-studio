@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BibliothequeApp.Models.Membre>
+@{
+    ViewData["Title"] = "Membres";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2><i class="bi bi-people me-2"></i>Membres</h2>
+    <a asp-action="Create" class="btn btn-primary"><i class="bi bi-person-plus me-1"></i>Nouveau membre</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead class="table-dark">
+            <tr><th>ID</th><th>Nom</th><th>Prénom</th><th>Email</th><th>Téléphone</th><th class="text-end">Actions</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td><code>@m.Id_membre</code></td>
+                    <td class="fw-semibold">@m.Nom</td>
+                    <td>@m.Prenom</td>
+                    <td><a href="mailto:@m.Email">@m.Email</a></td>
+                    <td>@m.Telephone</td>
+                    <td class="text-end">
+                        <a asp-action="Details" asp-route-id="@m.Id_membre" class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></a>
+                        <a asp-action="Edit" asp-route-id="@m.Id_membre" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
+                        <a asp-action="Delete" asp-route-id="@m.Id_membre" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            }
+            @if (!Model.Any())
+            {
+                <tr><td colspan="6" class="text-center text-muted py-4">Aucun membre enregistré.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

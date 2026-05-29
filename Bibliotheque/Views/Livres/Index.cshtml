@@ -1,0 +1,79 @@
+@model IEnumerable<BibliothequeApp.Models.Livre>
+
+@{
+    ViewData["Title"] = "Gestion des Livres";
+}
+
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h1><i class="bi bi-book"></i> Gestion des Livres</h1>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="@Url.Action("Create", "Livres")" class="btn btn-success btn-lg">
+                <i class="bi bi-plus-circle"></i> Ajouter un Livre
+            </a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Catégorie</th>
+                    <th>ISBN</th>
+                    <th>Quantité</th>
+                    <th>Disponibilité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var livre in Model)
+                {
+                    <tr>
+                        <td><strong>@livre.Titre</strong></td>
+                        <td>@livre.Auteur</td>
+                        <td><span class="badge bg-info">@livre.Categorie</span></td>
+                        <td>@livre.ISBN</td>
+                        <td>
+                            <span class="badge bg-warning">@livre.QuantiteDisponible/@livre.Quantite</span>
+                        </td>
+                        <td>
+                            @if (livre.Disponibilite == "Disponible")
+                            {
+                                <span class="badge bg-success">✓ Disponible</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">✗ Indisponible</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a href="@Url.Action("Details", "Livres", new { id = livre.Id_livre })" class="btn btn-primary" title="Détails">
+                                    <i class="bi bi-eye"></i> Détails
+                                </a>
+                                <a href="@Url.Action("Edit", "Livres", new { id = livre.Id_livre })" class="btn btn-warning" title="Modifier">
+                                    <i class="bi bi-pencil"></i> Modifier
+                                </a>
+                                <a href="@Url.Action("Delete", "Livres", new { id = livre.Id_livre })" class="btn btn-danger" title="Supprimer">
+                                    <i class="bi bi-trash"></i> Supprimer
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (Model.Count() == 0)
+    {
+        <div class="alert alert-info text-center" role="alert">
+            <h5>Aucun livre trouvé</h5>
+            <p>Cliquez sur "Ajouter un Livre" pour commencer.</p>
+        </div>
+    }
+</div>

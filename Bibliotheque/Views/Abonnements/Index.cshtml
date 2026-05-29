@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BibliothequeApp.Models.Abonnement>
+@{
+    ViewData["Title"] = "Abonnements";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2><i class="bi bi-credit-card me-2"></i>Abonnements</h2>
+    <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Nouvel abonnement</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead class="table-dark">
+            <tr><th>ID</th><th>Membre</th><th>Date début</th><th>Date fin</th><th>Montant (FCFA)</th><th>Statut</th><th class="text-end">Actions</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td><code>@a.CodeAbonnement</code></td>
+                    <td>@a.Membre?.Nom @a.Membre?.Prenom</td>
+                    <td>@a.DateDebut.ToShortDateString()</td>
+                    <td>@a.DateFin.ToShortDateString()</td>
+                    <td>@a.Montant.ToString("N0") FCFA</td>
+                    <td>
+                        @{
+                            var badgeClass = a.Actif ? "bg-success" : "bg-secondary";
+                        }
+                        <span class="badge @badgeClass">@(a.Actif ? "Actif" : "Inactif")</span>
+                    </td>
+                    <td class="text-end">
+                        <a asp-action="Details" asp-route-id="@a.Id_abonnement" class="btn btn-sm btn-outline-info me-1"><i class="bi bi-eye"></i></a>
+                        <a asp-action="Edit" asp-route-id="@a.Id_abonnement" class="btn btn-sm btn-outline-warning me-1"><i class="bi bi-pencil"></i></a>
+                        <a asp-action="Delete" asp-route-id="@a.Id_abonnement" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+            }
+            @if (!Model.Any())
+            {
+                <tr><td colspan="7" class="text-center text-muted py-4">Aucun abonnement enregistré.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>

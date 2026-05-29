@@ -1,0 +1,60 @@
+﻿@using BibliothequeApp.Models
+@using System.Collections.Generic
+@model BibliothequeApp.Models.Emprunt
+
+<h2>Détails Emprunt</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">ID Emprunt</dt>
+    <dd class="col-sm-9">@Model.Id_emprunt</dd>
+
+    <dt class="col-sm-3">Membre</dt>
+    <dd class="col-sm-9">@Model.Membre?.Nom @Model.Membre?.Prenom</dd>
+
+    <dt class="col-sm-3">Livre</dt>
+    <dd class="col-sm-9">@Model.Livre?.Titre</dd>
+
+    <dt class="col-sm-3">Date emprunt</dt>
+    <dd class="col-sm-9">@Model.Date_emprunt.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-3">Date retour prévue</dt>
+    <dd class="col-sm-9">@Model.Date_retour_prevue.ToString("dd/MM/yyyy")</dd>
+
+    <dt class="col-sm-3">Date retour effective</dt>
+    <dd class="col-sm-9">@(Model.Date_retour_effective?.ToString("dd/MM/yyyy") ?? "-")</dd>
+
+    <dt class="col-sm-3">Statut</dt>
+    <dd class="col-sm-9">
+        <span class="badge @(Model.Statut == "Rendu" ? "bg-success" : "bg-warning")">
+            @Model.Statut
+        </span>
+    </dd>
+</dl>
+
+<h4 class="mt-4">Pénalités</h4>
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Montant</th>
+            <th>Statut</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.Penalites ?? new List<Penalite>())
+        {
+            <tr>
+                <td>@p.Id_penalite</td>
+                <td>@p.Montant FCFA</td>
+                <td>
+                    <span class="badge @(p.Statut == "Payée" ? "bg-success" : "bg-danger")">
+                        @p.Statut
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Edit" asp-route-id="@Model.Id_emprunt">Modifier</a> |
+<a asp-action="Index">Retour</a>

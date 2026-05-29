@@ -1,0 +1,44 @@
+﻿@model BibliothequeApp.Models.Membre
+@{
+    ViewData["Title"] = "Modifier membre";
+}
+
+<h2 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Modifier — @Model.Nom @Model.Prenom</h2>
+<div class="card shadow-sm" style="max-width:560px;">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <input asp-for="Id_membre" type="hidden" />
+            <div class="mb-3">
+                <label class="form-label">Identifiant</label>
+                <input value="@Model.Id_membre" class="form-control" readonly />
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    <label asp-for="Nom" class="form-label">Nom</label>
+                    <input asp-for="Nom" class="form-control" />
+                </div>
+                <div class="col mb-3">
+                    <label asp-for="Prenom" class="form-label">Prénom</label>
+                    <input asp-for="Prenom" class="form-control" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" type="email" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Telephone" class="form-label">Téléphone</label>
+                <input asp-for="Telephone" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Adresse" class="form-label">Adresse</label>
+                <input asp-for="Adresse" class="form-control" />
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning"><i class="bi bi-save me-1"></i>Mettre à jour</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>

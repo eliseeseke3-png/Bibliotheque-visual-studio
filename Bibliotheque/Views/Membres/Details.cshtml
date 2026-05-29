@@ -1,0 +1,68 @@
+﻿@model BibliothequeApp.Models.Membre
+@{
+    ViewData["Title"] = "Détails membre";
+}
+
+<h2 class="mb-4"><i class="bi bi-person-circle me-2"></i>@Model.Prenom @Model.Nom</h2>
+
+<div class="row g-4">
+    <div class="col-md-5">
+        <div class="card shadow-sm">
+            <div class="card-header fw-semibold bg-dark text-white">Informations personnelles</div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5">ID</dt>
+                    <dd class="col-sm-7"><code>@Model.Id_membre</code></dd>
+                    <dt class="col-sm-5">Nom complet</dt>
+                    <dd class="col-sm-7">@Model.Prenom @Model.Nom</dd>
+                    <dt class="col-sm-5">Email</dt>
+                    <dd class="col-sm-7"><a href="mailto:@Model.Email">@Model.Email</a></dd>
+                    <dt class="col-sm-5">Téléphone</dt>
+                    <dd class="col-sm-7">@Model.Telephone</dd>
+                    <dt class="col-sm-5">Adresse</dt>
+                    <dd class="col-sm-7">@Model.Adresse</dd>
+                </dl>
+            </div>
+            <div class="card-footer d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.Id_membre" class="btn btn-warning btn-sm"><i class="bi bi-pencil me-1"></i>Modifier</a>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Retour</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card shadow-sm mb-3">
+            <div class="card-header bg-primary text-white fw-semibold">Emprunts (@Model.Emprunts?.Count ?? 0)</div>
+            <div class="card-body p-0">
+                <table class="table table-sm mb-0">
+                    <thead><tr><th>Livre</th><th>Date emprunt</th><th>Statut</th></tr></thead>
+                    <tbody>
+                        @foreach (var e in Model.Emprunts ?? new List<BibliothequeApp.Models.Emprunt>())
+                        {
+                            <tr>
+                                <td>@e.Livre?.Titre</td>
+                                <td>@e.Date_emprunt</td>
+                                <td><span class="badge @(e.Statut == "En cours" ? "bg-warning text-dark" : "bg-success")">@e.Statut</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-info text-white fw-semibold">Abonnements (@Model.Abonnements?.Count ?? 0)</div>
+            <div class="card-body p-0">
+                <table class="table table-sm mb-0">
+                    <thead><tr><th>Montant (FCFA)</th><th>Début</th><th>Fin</th><th>Statut</th></tr></thead>
+                    <tbody>
+                        @foreach (var a in Model.Abonnements ?? new List<BibliothequeApp.Models.Abonnement>())
+                        {
+                            <tr><td>@a.Montant.ToString("N0")</td><td>@a.DateDebut.ToShortDateString()</td><td>@a.DateFin.ToShortDateString()</td><td><span class="badge @(a.Actif ? "bg-success" : "bg-secondary")">@(a.Actif ? "Actif" : "Inactif")</span></td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

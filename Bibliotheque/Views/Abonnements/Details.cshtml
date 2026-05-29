@@ -1,0 +1,34 @@
+﻿@model BibliothequeApp.Models.Abonnement
+@{
+    ViewData["Title"] = "Détails abonnement";
+}
+
+<h2 class="mb-4"><i class="bi bi-credit-card me-2"></i>Abonnement — @Model.CodeAbonnement</h2>
+<div class="col-md-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white fw-semibold">Informations</div>
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-5">Membre</dt>
+                <dd class="col-sm-7">@Model.Membre?.Nom @Model.Membre?.Prenom</dd>
+                <dt class="col-sm-5">Date début</dt>
+                <dd class="col-sm-7">@Model.DateDebut.ToShortDateString()</dd>
+                <dt class="col-sm-5">Date fin</dt>
+                <dd class="col-sm-7">@Model.DateFin.ToShortDateString()</dd>
+                <dt class="col-sm-5">Montant</dt>
+                <dd class="col-sm-7 fw-bold text-primary">@Model.Montant.ToString("N0") FCFA</dd>
+                <dt class="col-sm-5">Statut</dt>
+                <dd class="col-sm-7">
+                    @{
+                        var badge = Model.Actif ? "bg-success" : "bg-secondary";
+                    }
+                    <span class="badge @badge">@(Model.Actif ? "Actif" : "Inactif")</span>
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer d-flex gap-2">
+            <a asp-action="Edit" asp-route-id="@Model.Id_abonnement" class="btn btn-warning btn-sm"><i class="bi bi-pencil me-1"></i>Modifier</a>
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Retour</a>
+        </div>
+    </div>
+</div>

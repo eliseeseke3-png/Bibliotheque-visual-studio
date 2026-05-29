@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Http <!DOCTYPE html> <html lang="fr"> <head> <meta charset="utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>@ViewData["Title"] - Bibliothèque</title>
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<!-- Custom CSS -->
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> </head> <body>
+<!-- Navbar moderne -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom border-soft shadow-sm"> <div class="container-fluid px-4"> <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/"> <i class="bi bi-book-half" style="color: #4F46E5; font-size: 1.5rem;"></i> <span style="color: #4F46E5;">Bibliothèque</span> </a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"> <span class="navbar-toggler-icon"></span> </button> <div class="collapse navbar-collapse" id="navbarNav"> <ul class="navbar-nav ms-auto align-items-lg-center gap-2"> <li class="nav-item"> <a class="nav-link" href="/Home/Index"> <i class="bi bi-house me-1"></i> Accueil </a> </li> <li class="nav-item"> <a class="nav-link" href="/Membres/Index"> <i class="bi bi-people me-1"></i> Membres </a> </li> <li class="nav-item"> <a class="nav-link" href="/Livre/Index"> <i class="bi bi-book me-1"></i> Livres </a> </li> <li class="nav-item"> <a class="nav-link" href="/Emprunts/Index"> <i class="bi bi-arrow-left-right me-1"></i> Emprunts </a> </li>
+<!-- Notifications Bell -->
+<li class="nav-item"> <a class="nav-link position-relative" href="/Notifications/Index"> <i class="bi bi-bell" style="font-size: 1.25rem;"></i> <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-circle" style="font-size: 0.65rem;">3</span> </a> </li>
+<!-- Profil Menu -->
+<li class="nav-item dropdown ms-lg-2"> <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown"> <i class="bi bi-person-circle me-1"></i> @(HttpContext.Session.GetString("Username") ?? "Utilisateur") </a> <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userMenu"> <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i> Mon profil</a></li> <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Paramètres</a></li> <li><hr class="dropdown-divider"></li> <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Déconnexion</a></li> </ul> </li> </ul> </div> </div> </nav>
+<!-- Main Content -->
+<main class="py-4 min-vh-100"> <div class="container-fluid"> @if (TempData["SuccessMessage"] != null) {
+    <div class="alert alert-success alert-dismissible fade show rounded-lg shadow-sm" role="alert"> <i class="bi bi-check-circle me-2"></i> @TempData["SuccessMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert"></button> </div>
+}
+
+@if (TempData["ErrorMessage"] != null) {
+    <div class="alert alert-danger alert-dismissible fade show rounded-lg shadow-sm" role="alert"> <i class="bi bi-exclamation-circle me-2"></i> @TempData["ErrorMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert"></button> </div>
+}
+
+@RenderBody() </div> </main>
+<!-- Footer -->
+<footer class="bg-light border-top border-soft mt-5 py-4 text-center text-muted small"> <p class="mb-0">&copy;
+2025 Système de Gestion de Bibliothèque. Tous droits réservés.</p >
+</footer >
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" > </script >
+<script src="~/js/site.js" asp-append-version="true" > </script >
+@await RenderSectionAsync("Scripts", required: false)
+</body >
+</html >

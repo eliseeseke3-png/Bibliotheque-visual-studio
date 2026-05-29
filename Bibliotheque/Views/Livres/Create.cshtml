@@ -1,0 +1,90 @@
+@model BibliothequeApp.Models.Livre
+
+@{
+    ViewData["Title"] = "Ajouter un Livre";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0"><i class="bi bi-plus-circle"></i> Ajouter un Nouveau Livre</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" action="@Url.Action("Create", "Livres")" novalidate>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="Titre" class="form-label">Titre *</label>
+                                <input type="text" id="Titre" name="Titre" class="form-control" required />
+                                <span class="text-danger">@Html.ValidationMessage("Titre")</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="Auteur" class="form-label">Auteur *</label>
+                                <input type="text" id="Auteur" name="Auteur" class="form-control" required />
+                                <span class="text-danger">@Html.ValidationMessage("Auteur")</span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="Categorie" class="form-label">Catégorie *</label>
+                                <input type="text" id="Categorie" name="Categorie" class="form-control" required />
+                                <span class="text-danger">@Html.ValidationMessage("Categorie")</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="ISBN" class="form-label">ISBN *</label>
+                                <input type="text" id="ISBN" name="ISBN" class="form-control" required />
+                                <span class="text-danger">@Html.ValidationMessage("ISBN")</span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="Quantite" class="form-label">Quantité *</label>
+                                <input type="number" id="Quantite" name="Quantite" class="form-control" min="1" required />
+                                <span class="text-danger">@Html.ValidationMessage("Quantite")</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="QuantiteDisponible" class="form-label">Quantité Disponible *</label>
+                                <input type="number" id="QuantiteDisponible" name="QuantiteDisponible" class="form-control" min="0" required />
+                                <span class="text-danger">@Html.ValidationMessage("QuantiteDisponible")</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ImageUrl" class="form-label">URL de l'image</label>
+                            <input type="url" id="ImageUrl" name="ImageUrl" class="form-control" placeholder="https://..." />
+                            <span class="text-danger">@Html.ValidationMessage("ImageUrl")</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Description" class="form-label">Description</label>
+                            <textarea id="Description" name="Description" class="form-control" rows="4"></textarea>
+                            <span class="text-danger">@Html.ValidationMessage("Description")</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Disponibilite" class="form-label">Disponibilité *</label>
+                            <select id="Disponibilite" name="Disponibilite" class="form-select" required>
+                                <option value="">-- Sélectionner --</option>
+                                <option value="Disponible">Disponible</option>
+                                <option value="Non disponible">Non disponible</option>
+                            </select>
+                            <span class="text-danger">@Html.ValidationMessage("Disponibilite")</span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-save"></i> Ajouter
+                            </button>
+                            <a href="@Url.Action("Index", "Livres")" class="btn btn-outline-secondary btn-lg">
+                                <i class="bi bi-arrow-left"></i> Annuler
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

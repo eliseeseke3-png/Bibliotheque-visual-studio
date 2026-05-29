@@ -1,0 +1,138 @@
+@{
+    ViewData["Title"] = "Bienvenue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="py-5">
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h1 class="display-4 fw-bold mb-4" style="color: #4F46E5;">
+                    <i class="bi bi-hand-thumbs-up me-3"></i>Bienvenue sur BibliothequeApp !
+                </h1>
+                <p class="lead text-muted mb-4">
+                    Découvrez une nouvelle façon de gérer vos lectures, d'emprunter des livres et de rejoindre une communauté de lecteurs passionnés.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="/Livre/Index" class="btn btn-primary btn-lg rounded-lg">
+                        <i class="bi bi-book me-2"></i>Voir les livres
+                    </a>
+                    <a href="/Membres/Index" class="btn btn-outline-primary btn-lg rounded-lg">
+                        <i class="bi bi-person-check me-2"></i>Mon profil
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" style="opacity: 0.8;">
+                        <rect width="300" height="300" fill="#F9FAFB" rx="20"/>
+                        <g transform="translate(75, 50)">
+                            <rect x="0" y="0" width="60" height="100" fill="#4F46E5" rx="4"/>
+                            <rect x="65" y="0" width="60" height="100" fill="#7C3AED" rx="4"/>
+                            <rect x="130" y="0" width="60" height="100" fill="#6366F1" rx="4"/>
+                            <circle cx="30" cy="120" r="15" fill="#4F46E5"/>
+                            <circle cx="95" cy="120" r="15" fill="#7C3AED"/>
+                            <circle cx="160" cy="120" r="15" fill="#6366F1"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 rounded-lg h-100">
+                    <div class="card-body text-center py-5">
+                        <i class="bi bi-book-heart" style="font-size: 3rem; color: #4F46E5;"></i>
+                        <h5 class="card-title mt-3 fw-bold">Emprunter des livres</h5>
+                        <p class="card-text text-muted">
+                            Accédez à notre large catalogue de livres et empruntez facilement vos titres préférés.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 rounded-lg h-100">
+                    <div class="card-body text-center py-5">
+                        <i class="bi bi-bookmark-check" style="font-size: 3rem; color: #7C3AED;"></i>
+                        <h5 class="card-title mt-3 fw-bold">Réserver des livres</h5>
+                        <p class="card-text text-muted">
+                            Réservez les livres que vous souhaitez lire et recevez une notification quand ils seront disponibles.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 rounded-lg h-100">
+                    <div class="card-body text-center py-5">
+                        <i class="bi bi-calendar-check" style="font-size: 3rem; color: #6366F1;"></i>
+                        <h5 class="card-title mt-3 fw-bold">Gérer votre abonnement</h5>
+                        <p class="card-text text-muted">
+                            Souscrivez à un abonnement flexible et accédez à des avantages exclusifs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popular Books Section -->
+        <div class="mb-5">
+            <h2 class="h3 fw-bold mb-4">
+                <i class="bi bi-star me-2" style="color: #4F46E5;"></i>Livres populaires
+            </h2>
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6">
+                    <div class="card shadow-sm border-0 rounded-lg overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507842217343-583f20270ecc?w=300&h=400&fit=crop" 
+                             alt="Livre" class="card-img-top" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h6 class="card-title fw-bold small">L'Alchimiste</h6>
+                            <p class="card-text text-muted small">Paulo Coelho</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card shadow-sm border-0 rounded-lg overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=300&h=400&fit=crop" 
+                             alt="Livre" class="card-img-top" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h6 class="card-title fw-bold small">1984</h6>
+                            <p class="card-text text-muted small">George Orwell</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card shadow-sm border-0 rounded-lg overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1543002588-d4d6c4cf4a7f?w=300&h=400&fit=crop" 
+                             alt="Livre" class="card-img-top" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h6 class="card-title fw-bold small">Le Petit Prince</h6>
+                            <p class="card-text text-muted small">Antoine de Saint-Exupéry</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="card shadow-sm border-0 rounded-lg overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=400&fit=crop" 
+                             alt="Livre" class="card-img-top" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h6 class="card-title fw-bold small">Harry Potter</h6>
+                            <p class="card-text text-muted small">J.K. Rowling</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="bg-light rounded-lg p-5 text-center">
+            <h3 class="fw-bold mb-3">Prêt à commencer ?</h3>
+            <p class="text-muted mb-4">Explorez notre collection complète de livres et trouvez vos prochains coups de cœur littéraires.</p>
+            <a href="/Livre/Index" class="btn btn-primary btn-lg rounded-lg">
+                <i class="bi bi-arrow-right me-2"></i>Parcourir la bibliothèque
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿@model BibliothequeApp.Models.Membre
+@{
+    ViewData["Title"] = "Supprimer membre";
+}
+
+<h2 class="mb-4 text-danger"><i class="bi bi-person-x me-2"></i>Confirmer la suppression</h2>
+<div class="card border-danger shadow-sm" style="max-width:480px;">
+    <div class="card-body">
+        <p class="text-muted">Voulez-vous vraiment supprimer ce membre ?</p>
+        <dl class="row">
+            <dt class="col-sm-4">ID</dt>
+            <dd class="col-sm-8">@Model.Id_membre</dd>
+            <dt class="col-sm-4">Nom</dt>
+            <dd class="col-sm-8 fw-bold">@Model.Prenom @Model.Nom</dd>
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8">@Model.Email</dd>
+        </dl>
+        <form asp-action="Delete" method="post" class="d-flex gap-2">
+            <input type="hidden" name="id" value="@Model.Id_membre" />
+            <button type="submit" class="btn btn-danger"><i class="bi bi-trash me-1"></i>Confirmer</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Inscription";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4 text-primary">Créer un compte</h2>
+
+                    @using (Html.BeginForm("Register", "Auth", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Nom" class="form-label">Nom</label>
+                            <input asp-for="Nom" class="form-control" />
+                            <span class="text-danger">@Html.ValidationMessageFor(m => m.Nom)</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Prenom" class="form-label">Prénom</label>
+                            <input asp-for="Prenom" class="form-control" />
+                            <span class="text-danger">@Html.ValidationMessageFor(m => m.Prenom)</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span class="text-danger">@Html.ValidationMessageFor(m => m.Email)</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Telephone" class="form-label">Téléphone</label>
+                            <input asp-for="Telephone" class="form-control" />
+                            <span class="text-danger">@Html.ValidationMessageFor(m => m.Telephone)</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label">Mot de passe</label>
+                            <input asp-for="Password" class="form-control" />
+                            <span class="text-danger">@Html.ValidationMessageFor(m => m.Password)</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label">Confirmer le mot de passe</label>
+                            <input asp-for="ConfirmPassword" class="form-control" />
+                            <span class="text-danger">@Html.ValidationMessageFor(m => m.ConfirmPassword)</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mb-2">S'inscrire</button>
+                    }
+
+                    <div class="text-center">
+                        <p>Vous avez déjà un compte ? <a href="/Auth/Login">Se connecter</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
